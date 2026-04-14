@@ -146,7 +146,7 @@ Commit `a449252`: Sau fix, eval_report thành công với 111 traces, avg 3 chun
 
 **Tôi làm tốt nhất ở điểm nào?**
 
-Tôi đã thành công trong việc design và implement supervisor-worker pattern với routing logic rõ ràng. Keyword-based routing đơn giản nhưng hiệu quả, cho phép system scale lên mà không cần phức tạp hóa logic. Coordination giữa các workers qua AgentState TypedDict cũng rất clean — mỗi worker biết input/output contract của mình. Tôi cũng trace được tất cả 111 test cases thành công và lưu vào JSON, tạo eval_report để phân tích routing distribution. Thêm nữa, tôi update gemini model timelyối để fix compatibility issue.
+Tôi đã thành công trong việc design và implement supervisor-worker pattern với routing logic rõ ràng. Keyword-based routing đơn giản nhưng hiệu quả, cho phép system scale lên mà không cần phức tạp hóa logic. Coordination giữa các workers qua AgentState TypedDict cũng rất clean — mỗi worker biết input/output contract của mình. Tôi cũng trace được tất cả 111 test cases thành công và lưu vào JSON, tạo eval_report để phân tích routing distribution. Thêm nữa, tôi đã xác định được lỗi build index: dữ liệu chưa được embed và add vào ChromaDB, nên retrieval trả về 0 chunks.
 
 **Tôi làm chưa tốt hoặc còn yếu ở điểm nào?**
 

@@ -17,6 +17,7 @@ Gọi độc lập để test:
 
 import os
 import sys
+from pathlib import Path
 
 # ─────────────────────────────────────────────
 # Worker Contract (xem contracts/worker_contracts.yaml)
@@ -26,22 +27,23 @@ import sys
 
 WORKER_NAME = "retrieval_worker"
 DEFAULT_TOP_K = 3
+DOCS_DIR = Path(__file__).resolve().parent.parent / "data" / "docs"
 
 
 def _get_embedding_fn():
     """
     Trả về embedding function.
-    TODO Sprint 1: Implement dùng OpenAI hoặc Sentence Transformers.
+    Dùng Sentence Transformers (all-MiniLM-L6-v2) — khớp với index script (sc.py).
     """
     # Option A: Sentence Transformers (offline, không cần API key)
-    """try:
+    try:
         from sentence_transformers import SentenceTransformer
         model = SentenceTransformer("all-MiniLM-L6-v2")
         def embed(text: str) -> list:
             return model.encode([text])[0].tolist()
         return embed
     except ImportError:
-        pass"""
+        pass
 
     # Option B: OpenAI (cần API key)
     try:
@@ -71,6 +73,7 @@ def _get_collection():
     client = chromadb.PersistentClient(path="./chroma_db")
     try:
         collection = client.get_collection("day09_docs")
+        print('using chroma')
     except Exception:
         # Auto-create nếu chưa có
         collection = client.get_or_create_collection(

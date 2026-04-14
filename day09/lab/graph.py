@@ -189,10 +189,8 @@ def retrieval_worker_node(state: AgentState) -> AgentState:
     state["history"].append("[retrieval_worker] called")
 
     # Placeholder output để test graph chạy được
-    state["retrieved_chunks"] = [
-        {"text": "SLA P1: phản hồi 15 phút, xử lý 4 giờ.", "source": "sla_p1_2026.txt", "score": 0.92}
-    ]
-    state["retrieved_sources"] = ["sla_p1_2026.txt"]
+    state["retrieved_chunks"] = state.get("retrieved_chunks", [])
+    state["retrieved_sources"] = state.get("retrieved_sources", [])
     state["history"].append(f"[retrieval_worker] retrieved {len(state['retrieved_chunks'])} chunks")
     return state
 

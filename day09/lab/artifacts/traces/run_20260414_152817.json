@@ -1,0 +1,75 @@
+{
+  "task": "SLA xử lý ticket P1 là bao lâu?",
+  "route_reason": "default route",
+  "risk_high": false,
+  "needs_tool": false,
+  "hitl_triggered": false,
+  "retrieved_chunks": [
+    {
+      "text": "SLA P1: phản hồi 15 phút, xử lý 4 giờ.",
+      "source": "sla_p1_2026.txt",
+      "score": 0.92
+    }
+  ],
+  "retrieved_sources": [
+    "sla_p1_2026.txt"
+  ],
+  "policy_result": {},
+  "mcp_tools_used": [],
+  "final_answer": "SLA xử lý ticket P1 là phản hồi trong 15 phút và xử lý trong 4 giờ [sla_p1_2026.txt].",
+  "sources": [
+    "sla_p1_2026.txt"
+  ],
+  "confidence": 0.92,
+  "history": [
+    "[supervisor] received task: SLA xử lý ticket P1 là bao lâu?",
+    "[supervisor] route=retrieval_worker reason=default route",
+    "[retrieval_worker] retrieved 0 chunks from []",
+    "[retrieval_worker] called",
+    "[retrieval_worker] retrieved 1 chunks",
+    "[synthesis_worker] answer generated, confidence=0.92, sources=['sla_p1_2026.txt']",
+    "[synthesis_worker] called",
+    "[synthesis_worker] answer generated, confidence=0.92",
+    "[graph] completed in 5349ms"
+  ],
+  "workers_called": [
+    "retrieval_worker",
+    "retrieval_worker",
+    "synthesis_worker",
+    "synthesis_worker"
+  ],
+  "supervisor_route": "retrieval_worker",
+  "latency_ms": 5349,
+  "run_id": "run_20260414_152817",
+  "worker_io_logs": [
+    {
+      "worker": "retrieval_worker",
+      "input": {
+        "task": "SLA xử lý ticket P1 là bao lâu?",
+        "top_k": 3
+      },
+      "output": {
+        "chunks_count": 0,
+        "sources": []
+      },
+      "error": null
+    },
+    {
+      "worker": "synthesis_worker",
+      "input": {
+        "task": "SLA xử lý ticket P1 là bao lâu?",
+        "chunks_count": 1,
+        "has_policy": false
+      },
+      "output": {
+        "answer_length": 85,
+        "sources": [
+          "sla_p1_2026.txt"
+        ],
+        "confidence": 0.92
+      },
+      "error": null
+    }
+  ],
+  "question_id": "q01"
+}

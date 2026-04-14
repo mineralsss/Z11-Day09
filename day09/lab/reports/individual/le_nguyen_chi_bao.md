@@ -22,16 +22,17 @@
 > Không chỉ nói "tôi làm Sprint X" — nói rõ file nào, function nào, quyết định nào.
 
 **Module/file tôi chịu trách nhiệm:**
-- File chính: `mcp_server.py`, `workers/policy_tool.py`, `eval_trace.py`
-- Functions tôi implement: `dispatch_tool`, `_call_mcp_tool`, các phần ghi trace MCP trong `policy_tool.run`, `run_grading_questions`, `analyze_traces`, `compare_single_vs_multi`
+- File chính: File chính: `mcp_server.py`,
+`group_report.md`, `routing_decisions.md`, `single_vs_multi_comparision.md`, `system_architecture.md`, `grading_run.jsonl`
+- Functions tôi implement: `dispatch_tool`, các phần ghi trace MCP trong `policy_tool.run`
 
 **Cách công việc của tôi kết nối với phần của thành viên khác:**
 
-Nhận output từ supervisor/workers để bổ sung lớp tool orchestration qua MCP, là cầu nối giữa routing (Sprint 1–2) và đo lường hệ thống (Sprint 4): policy worker gọi MCP tools, còn trace/eval ghi lại toàn bộ call-chain để debug. Nếu phần này thiếu, nhóm vẫn chạy được pipeline nhưng không đạt yêu cầu Sprint 3 (tool integration + trace) và Sprint 4 (metrics/report).
+Nhận output từ supervisor/workers để bổ sung lớp tool orchestration qua MCP, đo lường hệ thống (Sprint 4): policy worker gọi MCP tools, còn trace/eval ghi lại toàn bộ call-chain để debug. Nếu phần này thiếu, nhóm vẫn chạy được pipeline nhưng không đạt yêu cầu Sprint 3 (tool integration + trace) và Sprint 4 (metrics/report).
 
 **Bằng chứng (commit hash, file có comment tên bạn, v.v.):**
 
-Trong code hiện tại có đầy đủ fields do tôi phụ trách: `mcp_tools_used`, `mcp_tool_called`, `mcp_result` (trong `workers/policy_tool.py`) và các báo cáo `artifacts/grading_run.jsonl`, `artifacts/eval_report.json`, `artifacts/grading_eval.json`.
+Trong code hiện tại có đầy đủ fields do tôi phụ trách: các báo cáo `group_report.md`, `routing_decisions.md`, `single_vs_multi_comparision.md`, `system_architecture.md`, `grading_run.jsonl`
 
 ---
 
@@ -59,20 +60,6 @@ Tôi chọn phương án 2 vì mục tiêu Day 09 là **orchestration + observab
 Độ phức tạp tăng, và nếu mapping input/schema không chặt thì dễ phát sinh runtime error trong grading.
 
 **Bằng chứng từ trace/code:**
-
-```python
-# workers/policy_tool.py
-mcp_result = _call_mcp_tool("search_kb", {"query": task, "top_k": 3})
-state["mcp_tools_used"].append(mcp_result)
-state["mcp_tool_called"].append("search_kb")
-state["mcp_result"].append(mcp_result.get("output"))
-```
-
-```json
-// artifacts/eval_report.json
-"mcp_usage_rate": "35/73 (47%)",
-"hitl_rate": "3/73 (4%)"
-```
 
 ---
 

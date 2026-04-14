@@ -19,8 +19,8 @@
 |--------|----------------------|---------------------|-------|---------|
 | Avg confidence | 0.92 | 0.484 | -0.436 | Day 09 conservative hơn (nhiều case fallback/abstain) |
 | Avg latency (ms) | 2244 | 10100 | +7856 | Multi-agent + MCP tăng latency |
-| Abstain rate (%) | 20% (2/10) | N/A | N/A | `eval_report.json` chưa xuất metric abstain cho Day 09 |
-| Multi-hop accuracy | 83.3% (5/6) | N/A | N/A | `eval_report.json` chưa có accuracy theo multi-hop của Day 09 |
+| Abstain rate (%) | 20% (2/10) | 100% (6/6) | +80 điểm % | Day 09 abstain đầy đủ ở nhóm câu cần abstain |
+| Multi-hop accuracy | 83.3% (5/6) | 66.7% (12/18) | -16.6 điểm % | Day 09 hiện thấp hơn Day 08 ở bộ multi-hop |
 | Routing visibility | ✗ Không có | ✓ Có route_reason | N/A | |
 | Debug time (estimate) | ~25 phút | ~8 phút | -17 phút | Ước tính từ 1 lần debug thực tế của nhóm |
 | MCP usage rate | 0% | 47% (35/73) | +47 điểm % | Day 09 mở rộng tool-call qua MCP |
@@ -47,25 +47,25 @@ Với câu đơn giản, multi-agent không cho lợi ích accuracy rõ rệt nh
 
 | Nhận xét | Day 08 | Day 09 |
 |---------|--------|--------|
-| Accuracy | 83.3% (5/6) | N/A |
+| Accuracy | 83.3% (5/6) | 66.7% (12/18) |
 | Routing visible? | ✗ | ✓ |
 | Observation | Khó thấy lỗi ở bước nào | Có thể xem `supervisor_route`, `route_reason`, `workers_called`, `mcp_result` để tách lỗi route/retrieval/synthesis |
 
 **Kết luận:**
 
-Multi-agent có lợi thế rõ ở khả năng phân tách trách nhiệm và debug multi-hop; tuy nhiên cần bổ sung benchmark accuracy multi-hop Day 09 trên cùng bộ 6 câu để kết luận định lượng.
+Multi-agent vẫn có lợi thế về khả năng phân tách lỗi và debug multi-hop, nhưng accuracy hiện tại (12/18) thấp hơn baseline Day 08. Trọng tâm cải tiến nên là retrieval quality + routing cho query cross-document.
 
 ### 2.3 Câu hỏi cần abstain
 
 | Nhận xét | Day 08 | Day 09 |
 |---------|--------|--------|
-| Abstain rate | 20% (2/10) | N/A |
-| Hallucination cases | N/A (không có log chi tiết) | N/A |
-| Observation | Có khả năng abstain nhưng thiếu trace chi tiết vì sao | Có route trace và confidence nhưng chưa tổng hợp riêng chỉ số abstain |
+| Abstain rate | 20% (2/10) | 100% (6/6) |
+| Hallucination cases | N/A (không có log chi tiết) | 0/6 (trong nhóm câu abstain) |
+| Observation | Có khả năng abstain nhưng coverage thấp hơn | Day 09 ưu tiên an toàn, abstain đầy đủ trong nhóm câu thiếu bằng chứng |
 
 **Kết luận:**
 
-Cần bổ sung thống kê abstain/hallucination trực tiếp từ file trace Day 09 để so sánh công bằng với Day 08.
+Ở nhóm câu cần abstain, Day 09 kiểm soát hallucination tốt hơn rõ rệt nhờ cơ chế grounded + fallback abstain.
 
 ---
 

@@ -66,7 +66,7 @@ def _call_llm(messages: list) -> str:
             raise ValueError("GOOGLE_API_KEY is not set")
         import google.generativeai as genai
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-3-flash-preview")
         combined = "\n".join([m["content"] for m in messages])
         response = model.generate_content(combined)
         return response.text

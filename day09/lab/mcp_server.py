@@ -314,7 +314,7 @@ def dispatch_tool(tool_name: str, tool_input: dict) -> dict:
 
     tool_fn = TOOL_REGISTRY[tool_name]
     try:
-        result = tool_fn(tool_input)
+        result = tool_fn(**tool_input)
         return result
     except TypeError as e:
         return {

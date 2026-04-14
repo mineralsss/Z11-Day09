@@ -19,6 +19,8 @@ Gọi độc lập để test:
 import os
 import sys
 from typing import Optional
+from dotenv import load_dotenv
+load_dotenv()
 
 WORKER_NAME = "policy_tool_worker"
 
@@ -138,7 +140,7 @@ def analyze_policy(task: str, chunks: list) -> dict:
         "exceptions_found": exceptions_found,
         "source": sources,
         "policy_version_note": policy_version_note,
-        "explanation": "Analyzed via rule-based policy check. TODO: upgrade to LLM-based analysis.",
+        "explanation": analysis,
     }
 
 
@@ -209,6 +211,7 @@ def run(state: dict) -> dict:
         )
 
     except Exception as e:
+        print(f"  [ERROR] {e}")
         worker_io["error"] = {"code": "POLICY_CHECK_FAILED", "reason": str(e)}
         state["policy_result"] = {"error": str(e)}
         state["history"].append(f"[{WORKER_NAME}] ERROR: {e}")

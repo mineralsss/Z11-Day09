@@ -73,7 +73,6 @@ def _get_collection():
     client = chromadb.PersistentClient(path="./chroma_db")
     try:
         collection = client.get_collection("day09_docs")
-        print('using chroma')
     except Exception:
         # Auto-create nếu chưa có
         collection = client.get_or_create_collection(
